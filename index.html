@@ -13,17 +13,28 @@
         (async function () {
             const sdkInitializer = new AppExtensionsSDK({ identifier: 'f9dc1e22cdeb513a' });
             const sdk = await sdkInitializer.initialize();
+            const outputs = [];
 
-            console.log('sdk', sdk);
+            outputs.push(sdk);
 
-            sdk.execute(Command.OPEN_MODAL, {
-                type: Modal.CUSTOM_MODAL,
-                action_id: 'c6949aac-8f91-40b0-97b5-42abdd96fd62',
-                data: {
-                    item: 'xyz',
-                },
-            }).then((val) => console.log('then', val))
-              .catch((e) => console.log('error', e));
+            try {
+                const result = await sdk.execute(Command.OPEN_MODAL, {
+                    type: Modal.CUSTOM_MODAL,
+                    action_id: 'c6949aac-8f91-40b0-97b5-42abdd96fd62',
+                    data: {
+                        item: 'xyz',
+                    },
+                });
+
+                outputs.push(result);                
+            } catch (error) {
+                outputs.push(error);
+            }
+
+            const preEl = document.createElement('pre');
+
+            preEl.innerHTML = outputs.join(' \n ');
+            document.append(preEl);
         })();
     </script>
 </body>
