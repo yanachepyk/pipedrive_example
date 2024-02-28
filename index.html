@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipedrive example</title>
+    <script src="https://cdn.jsdelivr.net/npm/@pipedrive/app-extensions-sdk@0.10.0/dist/index.umd.js"></script>
+</head>
+
+<body>
+    <script>
+        (async function () {
+            const sdkInitializer = new AppExtensionsSDK({ identifier: 'f9dc1e22cdeb513a' });
+            const sdk = await sdkInitializer.initialize();
+
+            console.log('sdk', sdk);
+
+            sdk.execute(Command.OPEN_MODAL, {
+                type: Modal.CUSTOM_MODAL,
+                action_id: 'c6949aac-8f91-40b0-97b5-42abdd96fd62',
+                data: {
+                    item: 'xyz',
+                },
+            }).then((val) => console.log('then', val))
+              .catch((e) => console.log('error', e));
+        })();
+    </script>
+</body>
+
+</html>
